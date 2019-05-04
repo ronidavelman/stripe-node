@@ -793,4 +793,47 @@ describe('Customers Resource', function() {
       });
     });
   });
+
+  describe('CustomerBalanceTransaction methods', function() {
+    describe('retrieveTransaction', function() {
+      it('Sends the correct request', function() {
+        stripe.customers.retrieveTransaction('cus_123', 'cbtxn_123');
+        expect(stripe.LAST_REQUEST).to.deep.equal({
+          method: 'GET',
+          url: '/v1/customers/cus_123/customer_balance_transactions/cbtxn_123',
+          headers: {},
+          data: {},
+        });
+      });
+    });
+
+    describe('createTransaction', function() {
+      it('Sends the correct request', function() {
+        var data = {
+          amount: 1234,
+          currency: 'usd',
+        };
+        stripe.customers.createTransaction('cus_123', data);
+        expect(stripe.LAST_REQUEST).to.deep.equal({
+          method: 'POST',
+          url: '/v1/customers/cus_123/customer_balance_transactions',
+          headers: {},
+          data: data,
+        });
+      });
+    });
+
+    describe('listTransactions', function() {
+      it('Sends the correct request', function() {
+        stripe.customers.listTransactions('cus_123');
+        expect(stripe.LAST_REQUEST).to.deep.equal({
+          method: 'GET',
+          url: '/v1/customers/cus_123/customer_balance_transactions',
+          headers: {},
+          data: {},
+        });
+      });
+    });
+  });
 });
+
